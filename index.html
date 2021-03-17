@@ -4,6 +4,7 @@
         <meta charset="utf-8">
         <title></title>
         <style media="screen">
+
             *{
                 margin: 0;
                 padding: 0;
@@ -14,6 +15,7 @@
                 width: 100%;
                 height: 100vh;
                 display: flex;
+                flex-direction: column;
                 align-items: center;
                 justify-content: center;
             }
@@ -23,6 +25,8 @@
 
         <div class="container">
             <h1 id="timer"></h1>
+            <h2 id="indovinati"></h2>
+            <h2 id="result"></h2>
         </div>
 
 
@@ -32,7 +36,13 @@
         // Dopo 30 secondi l'utente deve inserire, uno alla volta, i numeri che ha visto precedentemente, tramite il prompt().
         // Dopo che sono stati inseriti i 5 numeri, il software dice quanti e quali dei numeri da indovinare sono stati individuati.
 
+        var sec = 1;
+        var fineTempo;
         var elenco = [];
+        var numeriUtente = [];
+        var numeriIndovinati = [];
+        var numeri = 0;
+        var score = 0;
 
         function rndGenerator() {
             for (var i = 0; i < 5; i++) {
@@ -46,21 +56,25 @@
             alert(elenco);
         }
 
-        var sec = 1;
-        var fineTempo;
-        var numeriUtente = [];
 
         function crono() {
             document.getElementById('timer').innerHTML = sec++;
-            if (sec > 30) {
-                clearInterval(fineTempo);
+            if (sec > 6) {
                 for (var i = 0; i < 5; i++) {
+                    document.getElementById('timer').innerHTML = "";
                     var numeri = parseInt(prompt("inserisci uno dei numeri mostrati in precedenza"))
                     numeriUtente.push(numeri);
+                    if (elenco.includes(numeri)) {
+                        numeriIndovinati.push(numeri);
+                        score++;
+                    }
                 }
-                console.log(numeriUtente);
+                clearInterval(fineTempo);
+                document.getElementById('indovinati').innerHTML ='Numeri indovinati: ' + numeriIndovinati;
+                document.getElementById('result').innerHTML ='Il tuo punteggio è di: ' + score;
             }
         }
+
 
 
         function esercizio() {
