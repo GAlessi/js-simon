@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <style media="screen">
+            *{
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            .container{
+                width: 100%;
+                height: 100vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        </style>
+    </head>
+    <body>
+
+        <div class="container">
+            <h1 id="timer"></h1>
+        </div>
+
+
+        <script type="text/javascript">
+        // Un alert() espone 5 numeri generati casualmente.
+        // Da li parte un timer di 30 secondi.
+        // Dopo 30 secondi l'utente deve inserire, uno alla volta, i numeri che ha visto precedentemente, tramite il prompt().
+        // Dopo che sono stati inseriti i 5 numeri, il software dice quanti e quali dei numeri da indovinare sono stati individuati.
+
+        var elenco = [];
+
+        function rndGenerator() {
+            for (var i = 0; i < 5; i++) {
+                var rnd = Math.floor(Math.random() * 100) + 1;
+                elenco.push(rnd);
+            }
+            console.log(elenco);
+        }
+
+        function allerta() {
+            alert(elenco);
+        }
+
+        var sec = 1;
+        var fineTempo;
+        var numeriUtente = [];
+
+        function crono() {
+            document.getElementById('timer').innerHTML = sec++;
+            if (sec > 30) {
+                clearInterval(fineTempo);
+                for (var i = 0; i < 5; i++) {
+                    var numeri = parseInt(prompt("inserisci uno dei numeri mostrati in precedenza"))
+                    numeriUtente.push(numeri);
+                }
+                console.log(numeriUtente);
+            }
+        }
+
+
+        function esercizio() {
+            rndGenerator();
+            allerta();
+            fineTempo = setInterval(crono, 1000);
+        }
+
+        esercizio()
+        </script>
+    </body>
+</html>
